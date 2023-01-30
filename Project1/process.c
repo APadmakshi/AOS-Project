@@ -31,7 +31,7 @@ linked_list * generate_processes(int n) {
 
 	while(n--) {
 		at = rand() % 100;
-		rt = (float)((rand() % 10)+1);
+		rt = (float)((rand() % 100) + 1)/10;
 		priority = (rand()%4)+1;
 		process *p = create_process(process_id,at,rt,priority);
 
