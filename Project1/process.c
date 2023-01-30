@@ -7,9 +7,9 @@
 int compare(void * data1, void * data2) {
 	process *p1 = (process *)data1;
 	process *p2 = (process *)data2;
-	if(p1->arrival_time < p2->arrival_time) {
+	if(p1->at < p2->at) {
 		return -1;
-	} else if(p1->arrival_time == p2->arrival_time){
+	} else if(p1->at == p2->at){
 		return 0;
 	} else {
 		return 1;
@@ -18,46 +18,46 @@ int compare(void * data1, void * data2) {
 
 linked_list * generate_processes(int n) {
 	linked_list * process_list = create_linked_list();
-	char pid = 'A';
+	char process_id = 'A';
 	unsigned char priority;
-	float arrival_time, run_time;
+	float at, rt;
 	time_t t;
 
 
    /* Intializes random number generator */
    srand((unsigned) time(&t));
 
-	if(process_list == NULL) fprintf(stderr,"Unable to create Linked List\n");
+	if(process_list == NULL) fprintf(stderr,"Not able to create Linked Lists\n");
 
 	while(n--) {
-		arrival_time = rand() % 100;
-		run_time = (float)((rand() % 100) + 1)/10;
+		at = rand() % 100;
+		rt = (float)((rand() % 100) + 1)/10;
 		priority = (rand()%4)+1;
-		process *p = create_process(pid,arrival_time,run_time,priority);
+		process *p = create_process(process_id,at,rt,priority);
 
 		add_node(process_list,p);
-		pid++;
+		process_id++;
 	}
 
 	sort(process_list,compare);
 
 	node * ptr = process_list->head;
-	pid = 'A';
+	process_id = 'A';
 	while(ptr!=NULL) {
-		((process *)ptr->data)->pid = pid;
-		if(pid == 'Z') pid = 'a' - 1;
-		pid++;
+		((process *)ptr->data)->process_id = process_id;
+		if(process_id == 'Z') process_id = 'a' - 1;
+		process_id++;
 		ptr=ptr->next;
 	}
 
 	return process_list;
 }
 
-process * create_process(char pid, float arrival_time, float run_time, unsigned char priority) {
+process * create_process(char process_id, float at, float rt, unsigned char priority) {
 	process * proc = (process *) malloc(sizeof(process));
-	proc->pid = pid;
-	proc->arrival_time = arrival_time;
-	proc->run_time = run_time;
+	proc->process_id = process_id;
+	proc->at = at;
+	proc->rt = rt;
 	proc->priority = priority;
 	return proc;
 }

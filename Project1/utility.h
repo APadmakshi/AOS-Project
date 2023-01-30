@@ -27,7 +27,7 @@ void sort(linked_list *ll, int (*cmp)(void *data1, void *data2));
 void swap_nodes(node *a, node *b);
 
 
-// Queue Implementation //
+// Queue Implementation
 
 typedef struct linked_list_s queue;
 

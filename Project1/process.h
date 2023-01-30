@@ -3,16 +3,17 @@
 
 #include "utility.h"
 
+//create a process with the parameters - Processid, arrival time, run time, priority
 struct process_s {
-	unsigned char pid;
-	float arrival_time;
-	float run_time;
+	unsigned char process_id;
+	float at;
+	float rt;
 	unsigned char priority; 
 };
 
 typedef struct process_s process;
 
-process * create_process(char pid, float arrival_time, float run_time, unsigned char priority);
+process * create_process(char process_id, float at, float rt, unsigned char priority);
 
 process * get_copy_of_process(process * proc);
 

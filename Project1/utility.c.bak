@@ -202,7 +202,7 @@ average_stats print_policy_stat(linked_list * ll)
 		avg_wait_time += wait_time;
 		avg_turnaround += turnaround;
 		process_count++;
-		printf("%16c| %14.1f | %12.1f | %10.1f | %10.1f | %15.1f | %11.1f | %17.1f | %10u |\n",proc->process_id,at, stat->start_time, stat->end_time, rt, response_time, wait_time, turnaround, priority);
+		printf("%16c | %14.1f | %12.1f | %10.1f | %10.1f | %15.1f | %11.1f | %17.1f | %10u |\n",proc->process_id,at, stat->start_time, stat->end_time, rt, response_time, wait_time, turnaround, priority);
 		ptr = ptr->next;
 	}
 	avg.avg_throughput = process_count;

@@ -12,7 +12,7 @@ struct process_stat_s {
 
 	float start_time;
 	float end_time;
-	float run_time;
+	float rt;
 
 	enum State state;
 };
@@ -47,6 +47,6 @@ average_stats highest_priority_first_np(linked_list * processes);
 average_stats highest_priority_first_p_aging(linked_list * processes);
 average_stats highest_priority_first_np_aging(linked_list * processes);
 
-// Print Stat//
+// Printing Stats
 average_stats print_policy_stat(linked_list * ll);
 #endif

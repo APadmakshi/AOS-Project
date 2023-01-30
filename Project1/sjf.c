@@ -3,20 +3,19 @@
 #include "stat.h"
 #include "utility.h"
 
-process_stat * create_process_stat(process* proc) {
-	process_stat * ps = (process_stat *) malloc(sizeof(process_stat));
-	ps->proc = proc;
-	ps->wait_time = 0;
-	ps->turnaround_time = 0;
-	ps->response_time = 0;
+process_stat * create_process_stat(process* proc);
 
-	ps->rt = 0;
-	ps->start_time = -1;
-	ps->end_time = -1;
-	return ps;
+int compareRunTime(void * data1, void * data2) {
+	process_stat * ps1 = (process_stat *) data1;
+	process_stat * ps2 = (process_stat *) data2;
+	if(((process *)ps1->proc)->rt < ((process *)ps2->proc)->rt) {
+		return -1;
+	} else {
+		return 1;
+	}
 }
 
-average_stats first_come_first_serve_np(linked_list * processes) {
+average_stats shortest_job_first_np(linked_list * processes) {
 	int t = 0;
 
 	//Create a process Queue
@@ -25,18 +24,21 @@ average_stats first_come_first_serve_np(linked_list * processes) {
 	if(processes->head == NULL) {
 		fprintf(stderr,"No process to schedule\n");
 	}
-	//while process queue is not null or time quanta is less than 100
+	//while process queue is not empty or time quanta is less than 100
 	process_stat * scheduled_process = NULL;
 
 	linked_list *ll = create_linked_list();
-	printf("\nFCFS:\n");
+	printf("\nSJF :\n");
 	while(t<100 || scheduled_process!=NULL) {
 		//check for incoming new process and enqueue it in the queue
 		if(proc_ptr != NULL) {
 			process * new_process = (process *)(proc_ptr->data);
-			if(new_process->at <= t) {
+			while(proc_ptr!=NULL && new_process->at <= t) {
 				enqueue(process_queue,create_process_stat(new_process));
+				sort(process_queue,compareRunTime);
 				proc_ptr = proc_ptr->next;
+				if(proc_ptr!=NULL)
+					new_process = (process *)(proc_ptr->data);
 			}
 		}
 
